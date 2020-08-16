@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=pass
+
+  node:
+    image: node:latest
+    working_dir: /home/node/app
+    volumes:
+      - ./gate-simulator:/home/node/app
+    command: 'npm start'
+    ports:
+      - '9999:9999'
+
+  openjdk:
+    image: openjdk:8
+    working_dir: /usr/src/myapp
+    volumes:
+      - ./artifacts/aqa-shop-postgres:/usr/src/myapp
+    command: 'java -jar aqa-shop.jar'
+    ports:
+      - '8080:8080'
+    restart: on-failure
+    depends_on:
+      - postgres
+      - node
