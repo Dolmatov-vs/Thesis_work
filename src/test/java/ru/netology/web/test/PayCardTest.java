@@ -54,6 +54,7 @@ public class PayCardTest {
         statusOk.waitUntil(visible, timeOut);
         statusError.waitUntil(hidden, timeOut);
     }
+
     @Test
     void shouldErrorPurchaseTour(){
         val homePage = new HomePage();
@@ -67,6 +68,7 @@ public class PayCardTest {
         statusError.waitUntil(visible, timeOut);
         statusOk.waitUntil(hidden,timeOut);
     }
+
     @Test
     void shouldErrorBuyingTourIfCardDoesNotExist(){
         val homePage = new HomePage();
@@ -79,7 +81,6 @@ public class PayCardTest {
                 cardInfo.getCvc());
        statusError.waitUntil(visible,timeOut);
        statusOk.waitUntil(hidden, timeOut);
-
     }
 
     @Test
