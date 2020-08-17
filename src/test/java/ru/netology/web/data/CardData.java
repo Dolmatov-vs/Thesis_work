@@ -48,9 +48,8 @@ public class CardData {
     public static String getMonth(){
         int month = MonthDay.now().getMonthValue();
         month = month + new Random().nextInt(12 - month);
-        if (month < 10)
-            return "0"+Integer.toString(month);
-        return Integer.toString(month);
+        Integer.toString(month);
+        return String.format("%02d", month);
     }
 
     public static String getYear(){
