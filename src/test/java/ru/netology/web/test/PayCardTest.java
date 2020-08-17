@@ -7,17 +7,34 @@ import org.junit.jupiter.api.Test;
 import ru.netology.web.data.CardData;
 import ru.netology.web.page.HomePage;
 
+import java.time.MonthDay;
+import java.time.Year;
+
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Condition.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PayCardTest {
 
     SelenideElement statusOk = $(byText("Операция одобрена Банком."));
     SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
+    SelenideElement fieldCardNumber = $$("[class='input__inner']").findBy(text("Номер карты"));
+    SelenideElement fieldMonth  = $$("[class='input__inner']").findBy(text("Месяц"));
+    SelenideElement fieldYear  = $$("[class='input__inner']").findBy(text("Год"));
+    SelenideElement fieldOwner  = $$("[class='input__inner']").findBy(text("Владелец"));
+    SelenideElement fieldCvc  = $$("[class='input__inner']").findBy(text("CVC/CVV"));
+
+    String redColorError = "rgba(255, 92, 92, 1)";
+    String incorrectFormat = "Неверный формат";
+    String requiredField = "Поле обязательно для заполнения";
+    String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
+
     int timeOut = 10000;
+    int currentMonth = MonthDay.now().getMonthValue();
+    int currentYear = Year.now().getValue() % 100;
 
     @BeforeEach
     void setup(){
@@ -64,4 +81,156 @@ public class PayCardTest {
        statusOk.waitUntil(hidden, timeOut);
 
     }
+
+    @Test
+    void shouldErrorIfAllFieldsAreEmpty(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(null);
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                null,
+                null,
+                null,
+                null);
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldOwner.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldCvc.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfAllFieldsAreLatinCharacter(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo("Card");
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "Mo",
+                "Ye",
+                "Ivan Ivanov",
+                "Cvc");
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldOwner.shouldBe(hidden, cssValue("color", redColorError));
+        fieldCvc.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfAllFieldsAreCyrillicCharacters(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo("Карта");
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "Месяц",
+                "Год",
+                "Владелец",
+                "свс");
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldOwner.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+        fieldCvc.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfAllFieldsAreSpecialCharacter(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(specificSymbols);
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                specificSymbols,
+                specificSymbols,
+                specificSymbols,
+                specificSymbols);
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+        fieldOwner.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+        fieldCvc.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfFieldCardNumberEnterLess16Digit(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo("4444 4444 4444 444");
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                cardInfo.getMonth(),
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldCardNumber.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfFieldCardNumberEnterMore16Digit(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber()+"1");
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                cardInfo.getMonth(),
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(visible, timeOut);
+        assertEquals(CardData.getApprovedCardNumber(), fieldCardNumber.$("input").getValue());
+    }
+
+    @Test
+    void shouldErrorIfEnterMonthNotExist(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "00",
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfEnterMonth13(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "13",
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfFieldMonthEnterOneDigit(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "0",
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusError.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
+        fieldMonth.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+    }
+
 }
