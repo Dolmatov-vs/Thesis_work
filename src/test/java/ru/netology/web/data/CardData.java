@@ -67,6 +67,4 @@ public class CardData {
         Integer.toString(cvc);
         return String.format("%03d", cvc);
     }
-
-
 }
