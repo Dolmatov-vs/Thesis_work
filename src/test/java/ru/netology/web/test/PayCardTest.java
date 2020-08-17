@@ -190,7 +190,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfEnterMonthNotExist(){
+    void shouldErrorIfEnterMonth00(){
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
