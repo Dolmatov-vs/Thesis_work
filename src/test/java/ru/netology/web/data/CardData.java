@@ -3,11 +3,8 @@ package ru.netology.web.data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.MonthDay;
 import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
 
@@ -54,7 +51,7 @@ public class CardData {
 
     public static String getYear(){
         int year = Year.now().getValue() % 100;
-        year = year + new Random().nextInt(5); // Из расчёта срока службы банковской карты
+        year = year + new Random().nextInt(5); // Из расчёта срока службы банковской карты 5 лет.
         return Integer.toString(year);
     }
 
@@ -66,8 +63,9 @@ public class CardData {
 
     public static String getCvc(){
         Faker faker = new Faker();
-        String cvc = Integer.toString(faker.number().numberBetween(100, 999));
-        return cvc;
+        int cvc = faker.number().numberBetween(1, 999);
+        Integer.toString(cvc);
+        return String.format("%03d", cvc);
     }
 
 
