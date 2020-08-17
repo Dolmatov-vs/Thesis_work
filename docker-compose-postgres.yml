@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:12.4
     ports:
       - '5432:5432'
     volumes:
@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=pass
 
   node:
-    image: node:latest
+    image: node:14.8.0
     working_dir: /home/node/app
     volumes:
       - ./gate-simulator:/home/node/app
@@ -21,7 +21,7 @@ services:
       - '9999:9999'
 
   openjdk:
-    image: openjdk:8
+    image: openjdk:11.0.7
     working_dir: /usr/src/myapp
     volumes:
       - ./artifacts/aqa-shop-postgres:/usr/src/myapp
