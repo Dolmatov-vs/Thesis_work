@@ -3,7 +3,11 @@ package ru.netology.web.data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.MonthDay;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
 
@@ -30,10 +34,10 @@ public class CardData {
     }
 
     public static String getApprovedCardNumber(){
-        return "4444444444444441";
+        return "4444 4444 4444 4441";
     }
     public static String getDeclinedCardNumber(){
-        return "4444444444444442";
+        return "4444 4444 4444 4442";
     }
     public static String getInvalidCardNumber(){
         Faker faker = new Faker();
@@ -42,13 +46,16 @@ public class CardData {
     }
 
     public static String getMonth(){
-        String[] months = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        return months[new Random().nextInt(months.length-1)];
+        int month = MonthDay.now().getMonthValue();
+        month = month + new Random().nextInt(12 - month);
+        if (month < 10)
+            return "0"+Integer.toString(month);
+        return Integer.toString(month);
     }
 
     public static String getYear(){
         int year = Year.now().getValue() % 100;
-        year = year + new Random().nextInt(4) + 1; //Срок действия карты в диапазоне от Текущий год +1 до текущий год + 5
+        year = year + new Random().nextInt(5); // Из расчёта срока службы банковской карты
         return Integer.toString(year);
     }
 
