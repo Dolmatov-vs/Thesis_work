@@ -9,11 +9,11 @@ import java.util.Locale;
 import java.util.Random;
 
 public class CardData {
-    private CardData(){
+    private CardData() {
     }
 
     @Value
-    public static class CardInfo{
+    public static class CardInfo {
         private String cardNumber;
         private String month;
         private String year;
@@ -21,7 +21,7 @@ public class CardData {
         private String cvc;
     }
 
-    public static CardInfo getCardInfo(String cardNumber){
+    public static CardInfo getCardInfo(String cardNumber) {
         return new CardInfo(
                 cardNumber,
                 getMonth(),
@@ -30,37 +30,39 @@ public class CardData {
                 getCvc());
     }
 
-    public static String getApprovedCardNumber(){
+    public static String getApprovedCardNumber() {
         return "4444 4444 4444 4441";
     }
-    public static String getDeclinedCardNumber(){
+
+    public static String getDeclinedCardNumber() {
         return "4444 4444 4444 4442";
     }
-    public static String getInvalidCardNumber(){
+
+    public static String getInvalidCardNumber() {
         Faker faker = new Faker();
         String invalidCardNumber = faker.business().creditCardNumber();
         return invalidCardNumber;
     }
 
-    public static String getMonth(){
+    public static String getMonth() {
         int month = MonthDay.now().getMonthValue();
         month = month + new Random().nextInt(12 - month);
         return String.format("%02d", month);
     }
 
-    public static String getYear(){
+    public static String getYear() {
         int year = Year.now().getValue() % 100;
         year = year + new Random().nextInt(5); // Из расчёта срока службы банковской карты 5 лет.
         return Integer.toString(year);
     }
 
-    public static String getOwner(){
+    public static String getOwner() {
         Faker faker = new Faker(new Locale("en"));
-        String owner = faker.name().lastName()+" "+faker.name().firstName();
+        String owner = faker.name().lastName() + " " + faker.name().firstName();
         return owner;
     }
 
-    public static String getCvc(){
+    public static String getCvc() {
         Faker faker = new Faker();
         int cvc = faker.number().numberBetween(1, 999);
         return String.format("%03d", cvc);

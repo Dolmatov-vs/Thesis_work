@@ -18,14 +18,12 @@ public class PayCard {
     private SelenideElement proceed = $$("button").findBy(text("Продолжить"));
 
 
-
-
-    public PayCard(){
+    public PayCard() {
         heading.shouldHave(text("Оплата по карте"));
         paymentField.shouldBe(visible);
     }
 
-    public void buyTour(String cardNumber, String month, String year, String owner, String cvc){
+    public void buyTour(String cardNumber, String month, String year, String owner, String cvc) {
         setCardNumber.setValue(cardNumber);
         setMonth.setValue(month);
         setYear.setValue(year);

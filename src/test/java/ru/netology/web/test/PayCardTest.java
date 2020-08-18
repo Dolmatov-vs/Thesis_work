@@ -26,10 +26,10 @@ public class PayCardTest {
     SelenideElement statusOk = $(byText("Операция одобрена Банком."));
     SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
     SelenideElement fieldCardNumber = $$("[class='input__inner']").findBy(text("Номер карты"));
-    SelenideElement fieldMonth  = $$("[class='input__inner']").findBy(text("Месяц"));
-    SelenideElement fieldYear  = $$("[class='input__inner']").findBy(text("Год"));
-    SelenideElement fieldOwner  = $$("[class='input__inner']").findBy(text("Владелец"));
-    SelenideElement fieldCvc  = $$("[class='input__inner']").findBy(text("CVC/CVV"));
+    SelenideElement fieldMonth = $$("[class='input__inner']").findBy(text("Месяц"));
+    SelenideElement fieldYear = $$("[class='input__inner']").findBy(text("Год"));
+    SelenideElement fieldOwner = $$("[class='input__inner']").findBy(text("Владелец"));
+    SelenideElement fieldCvc = $$("[class='input__inner']").findBy(text("CVC/CVV"));
 
     String redColorError = "rgba(255, 92, 92, 1)";
     String incorrectFormat = "Неверный формат";
@@ -40,7 +40,7 @@ public class PayCardTest {
     int currentMonth = MonthDay.now().getMonthValue();
     int currentYear = Year.now().getValue() % 100;
 
-    public String subtractMonth (int currentMonth){
+    public String subtractMonth(int currentMonth) {
         if (currentMonth == 1)
             return "12";
         return String.format("%02d", currentMonth--);
@@ -50,18 +50,19 @@ public class PayCardTest {
     static void setUpAll() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
+
     @AfterAll
-    static void tearDownAll(){
+    static void tearDownAll() {
         SelenideLogger.removeListener("AllureSelenide");
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         open("http://localhost:8080/");
     }
 
     @Test
-    void shouldSuccessfulPurchaseOfTheTour(){
+    void shouldSuccessfulPurchaseOfTheTour() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -75,7 +76,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorPurchaseTour(){
+    void shouldErrorPurchaseTour() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getDeclinedCardNumber());
         homePage.buyCard().buyTour(
@@ -85,11 +86,11 @@ public class PayCardTest {
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
         statusError.waitUntil(visible, timeOut);
-        statusOk.waitUntil(hidden,timeOut);
+        statusOk.waitUntil(hidden, timeOut);
     }
 
     @Test
-    void shouldErrorBuyingTourIfCardDoesNotExist(){
+    void shouldErrorBuyingTourIfCardDoesNotExist() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getInvalidCardNumber());
         homePage.buyCard().buyTour(
@@ -98,12 +99,12 @@ public class PayCardTest {
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-       statusError.waitUntil(visible,timeOut);
-       statusOk.waitUntil(hidden, timeOut);
+        statusError.waitUntil(visible, timeOut);
+        statusOk.waitUntil(hidden, timeOut);
     }
 
     @Test
-    void shouldErrorIfAllFieldsAreEmpty(){
+    void shouldErrorIfAllFieldsAreEmpty() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(null);
         homePage.buyCard().buyTour(
@@ -112,7 +113,7 @@ public class PayCardTest {
                 null,
                 null,
                 null);
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
@@ -122,7 +123,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfAllFieldsAreLatinCharacter(){
+    void shouldErrorIfAllFieldsAreLatinCharacter() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Card");
         homePage.buyCard().buyTour(
@@ -131,7 +132,7 @@ public class PayCardTest {
                 "Ye",
                 "Ivan Ivanov",
                 "Cvc");
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
@@ -141,7 +142,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfAllFieldsAreCyrillicCharacters(){
+    void shouldErrorIfAllFieldsAreCyrillicCharacters() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Карта");
         homePage.buyCard().buyTour(
@@ -150,7 +151,7 @@ public class PayCardTest {
                 "Год",
                 "Владелец",
                 "свс");
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
@@ -160,7 +161,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfAllFieldsAreSpecialCharacter(){
+    void shouldErrorIfAllFieldsAreSpecialCharacter() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(specificSymbols);
         homePage.buyCard().buyTour(
@@ -169,7 +170,7 @@ public class PayCardTest {
                 specificSymbols,
                 specificSymbols,
                 specificSymbols);
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
@@ -179,7 +180,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfFieldCardNumberEnterLess16Digit(){
+    void shouldErrorIfFieldCardNumberEnterLess16Digit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("4444 4444 4444 444");
         homePage.buyCard().buyTour(
@@ -188,28 +189,28 @@ public class PayCardTest {
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldCardNumber.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
     }
 
     @Test
-    void shouldErrorIfFieldCardNumberEnterMore16Digit(){
+    void shouldErrorIfFieldCardNumberEnterMore16Digit() {
         val homePage = new HomePage();
-        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber()+"1");
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber() + "1");
         homePage.buyCard().buyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(visible, timeOut);
         assertEquals(CardData.getApprovedCardNumber(), fieldCardNumber.$("input").getValue());
     }
 
     @Test
-    void shouldErrorIfEnterMonth00(){
+    void shouldErrorIfEnterMonth00() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -218,13 +219,13 @@ public class PayCardTest {
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
     }
 
     @Test
-    void shouldErrorIfEnterMonth13(){
+    void shouldErrorIfEnterMonth13() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -233,13 +234,13 @@ public class PayCardTest {
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
     }
 
     @Test
-    void shouldErrorIfFieldMonthEnterOneDigit(){
+    void shouldErrorIfFieldMonthEnterOneDigit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -248,13 +249,13 @@ public class PayCardTest {
                 cardInfo.getYear(),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
-        statusError.waitUntil(hidden,timeOut);
+        statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldMonth.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
     }
 
     @Test
-    void shouldSuccessfulIfCardExpiredInCurrentMonthCurrentYear(){
+    void shouldSuccessfulIfCardExpiredInCurrentMonthCurrentYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -268,7 +269,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfCardExpiredInLastMonthCurrentYear(){
+    void shouldErrorIfCardExpiredInLastMonthCurrentYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -283,13 +284,13 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfCardExpiresInCurrentMonthLastYear(){
+    void shouldErrorIfCardExpiresInCurrentMonthLastYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
                 cardInfo.getCardNumber(),
                 String.format("%02d", currentMonth),
-                String.format("%02d", currentYear-1),
+                String.format("%02d", currentYear - 1),
                 cardInfo.getOwner(),
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
@@ -298,7 +299,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldSuccessfulIfCardExpiresInDecemberAfterFiveYear(){
+    void shouldSuccessfulIfCardExpiresInDecemberAfterFiveYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -312,7 +313,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldSuccessfulIfCardExpirationDateDoesNotExist(){
+    void shouldSuccessfulIfCardExpirationDateDoesNotExist() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -327,7 +328,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfEnterCvc000(){
+    void shouldErrorIfEnterCvc000() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
