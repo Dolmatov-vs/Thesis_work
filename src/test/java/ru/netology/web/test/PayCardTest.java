@@ -40,6 +40,12 @@ public class PayCardTest {
     int currentMonth = MonthDay.now().getMonthValue();
     int currentYear = Year.now().getValue() % 100;
 
+    public String subtractMonth (int currentMonth){
+        if (currentMonth == 1)
+            return "12";
+        return String.format("%02d", currentMonth--);
+    }
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
@@ -245,6 +251,94 @@ public class PayCardTest {
         statusError.waitUntil(hidden,timeOut);
         statusOk.waitUntil(hidden, timeOut);
         fieldMonth.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldSuccessfulIfCardExpiredInCurrentMonthCurrentYear(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                String.format("%02d", currentMonth),
+                String.format("%02d", currentYear),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusOk.waitUntil(visible, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+    }
+
+    @Test
+    void shouldErrorIfCardExpiredInLastMonthCurrentYear(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                String.format("%02d", subtractMonth(currentMonth)),
+                String.format("%02d", currentYear),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusOk.waitUntil(hidden, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+        fieldMonth.shouldBe(visible, text("Истёк срок действия карты"), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfCardExpiresInCurrentMonthLastYear(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                String.format("%02d", currentMonth),
+                String.format("%02d", currentYear-1),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusOk.waitUntil(hidden, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+        fieldYear.shouldBe(visible, text("Истёк срок действия карты"), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldSuccessfulIfCardExpiresInDecemberAfterFiveYear(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "12",
+                String.format("%02d", currentYear + 5),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusOk.waitUntil(visible, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+    }
+
+    @Test
+    void shouldSuccessfulIfCardExpirationDateDoesNotExist(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                "01",
+                String.format("%02d", currentYear + 6),
+                cardInfo.getOwner(),
+                cardInfo.getCvc());
+        statusOk.waitUntil(hidden, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+        fieldYear.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+    }
+
+    @Test
+    void shouldErrorIfEnterCvc000(){
+        val homePage = new HomePage();
+        val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        homePage.buyCard().buyTour(
+                cardInfo.getCardNumber(),
+                cardInfo.getMonth(),
+                cardInfo.getYear(),
+                cardInfo.getOwner(),
+                "000");
+        statusOk.waitUntil(hidden, timeOut);
+        statusError.waitUntil(hidden, timeOut);
+        fieldCvc.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
     }
 
 }
