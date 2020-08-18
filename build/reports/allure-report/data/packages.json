@@ -1,0 +1,165 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "name" : "packages",
+  "children" : [ {
+    "name" : "ru.netology.web.test.PayCardTest",
+    "children" : [ {
+      "name" : "shouldErrorIfEnterMonth00",
+      "uid" : "61f647a8a2ad1f75",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753408422,
+        "stop" : 1597753419708,
+        "duration" : 11286
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfEnterMonth13",
+      "uid" : "7fd9acd62db39c2c",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "passed",
+      "time" : {
+        "start" : 1597753420031,
+        "stop" : 1597753424040,
+        "duration" : 4009
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorPurchaseTour",
+      "uid" : "5a73d9b6bd741363",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753424059,
+        "stop" : 1597753436935,
+        "duration" : 12876
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorBuyingTourIfCardDoesNotExist",
+      "uid" : "3e982503893c3ebc",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753436944,
+        "stop" : 1597753453926,
+        "duration" : 16982
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfFieldMonthEnterOneDigit",
+      "uid" : "a5da2132455c8c04",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "passed",
+      "time" : {
+        "start" : 1597753453933,
+        "stop" : 1597753456575,
+        "duration" : 2642
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfAllFieldsAreEmpty",
+      "uid" : "5e3d8d7a963d2756",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753456582,
+        "stop" : 1597753462489,
+        "duration" : 5907
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldSuccessfulPurchaseOfTheTour",
+      "uid" : "f3ea2de41713e5cd",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "passed",
+      "time" : {
+        "start" : 1597753462495,
+        "stop" : 1597753470579,
+        "duration" : 8084
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfFieldCardNumberEnterMore16Digit",
+      "uid" : "c560ab81ff8f7683",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "passed",
+      "time" : {
+        "start" : 1597753470586,
+        "stop" : 1597753479372,
+        "duration" : 8786
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfAllFieldsAreLatinCharacter",
+      "uid" : "9e852da1a7f098fb",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753479378,
+        "stop" : 1597753485883,
+        "duration" : 6505
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfAllFieldsAreSpecialCharacter",
+      "uid" : "7e1cfa2e0f3e30a4",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753485889,
+        "stop" : 1597753492982,
+        "duration" : 7093
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfFieldCardNumberEnterLess16Digit",
+      "uid" : "2fe6b15817d3eb34",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "passed",
+      "time" : {
+        "start" : 1597753492987,
+        "stop" : 1597753495392,
+        "duration" : 2405
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "shouldErrorIfAllFieldsAreCyrillicCharacters",
+      "uid" : "b155ef3b1e300609",
+      "parentUid" : "8d31f694ecb24d1a0f939b46d9fd5220",
+      "status" : "failed",
+      "time" : {
+        "start" : 1597753495396,
+        "stop" : 1597753501744,
+        "duration" : 6348
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "ru.netology.web.test.PayCardTest"
+  } ]
+}

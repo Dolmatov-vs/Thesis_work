@@ -1,0 +1,121 @@
+[ {
+  "uid" : "2fe6b15817d3eb34",
+  "name" : "shouldErrorIfFieldCardNumberEnterLess16Digit()",
+  "time" : {
+    "start" : 1597753492987,
+    "stop" : 1597753495392,
+    "duration" : 2405
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "5e3d8d7a963d2756",
+  "name" : "shouldErrorIfAllFieldsAreEmpty()",
+  "time" : {
+    "start" : 1597753456582,
+    "stop" : 1597753462489,
+    "duration" : 5907
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "7fd9acd62db39c2c",
+  "name" : "shouldErrorIfEnterMonth13()",
+  "time" : {
+    "start" : 1597753420031,
+    "stop" : 1597753424040,
+    "duration" : 4009
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "7e1cfa2e0f3e30a4",
+  "name" : "shouldErrorIfAllFieldsAreSpecialCharacter()",
+  "time" : {
+    "start" : 1597753485889,
+    "stop" : 1597753492982,
+    "duration" : 7093
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "5a73d9b6bd741363",
+  "name" : "shouldErrorPurchaseTour()",
+  "time" : {
+    "start" : 1597753424059,
+    "stop" : 1597753436935,
+    "duration" : 12876
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "c560ab81ff8f7683",
+  "name" : "shouldErrorIfFieldCardNumberEnterMore16Digit()",
+  "time" : {
+    "start" : 1597753470586,
+    "stop" : 1597753479372,
+    "duration" : 8786
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "a5da2132455c8c04",
+  "name" : "shouldErrorIfFieldMonthEnterOneDigit()",
+  "time" : {
+    "start" : 1597753453933,
+    "stop" : 1597753456575,
+    "duration" : 2642
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "61f647a8a2ad1f75",
+  "name" : "shouldErrorIfEnterMonth00()",
+  "time" : {
+    "start" : 1597753408422,
+    "stop" : 1597753419708,
+    "duration" : 11286
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "b155ef3b1e300609",
+  "name" : "shouldErrorIfAllFieldsAreCyrillicCharacters()",
+  "time" : {
+    "start" : 1597753495396,
+    "stop" : 1597753501744,
+    "duration" : 6348
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "9e852da1a7f098fb",
+  "name" : "shouldErrorIfAllFieldsAreLatinCharacter()",
+  "time" : {
+    "start" : 1597753479378,
+    "stop" : 1597753485883,
+    "duration" : 6505
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "3e982503893c3ebc",
+  "name" : "shouldErrorBuyingTourIfCardDoesNotExist()",
+  "time" : {
+    "start" : 1597753436944,
+    "stop" : 1597753453926,
+    "duration" : 16982
+  },
+  "status" : "failed",
+  "severity" : "normal"
+}, {
+  "uid" : "f3ea2de41713e5cd",
+  "name" : "shouldSuccessfulPurchaseOfTheTour()",
+  "time" : {
+    "start" : 1597753462495,
+    "stop" : 1597753470579,
+    "duration" : 8084
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

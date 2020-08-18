@@ -1,0 +1,323 @@
+{
+  "uid" : "f3ea2de41713e5cd",
+  "name" : "shouldSuccessfulPurchaseOfTheTour()",
+  "fullName" : "ru.netology.web.test.PayCardTest.shouldSuccessfulPurchaseOfTheTour",
+  "historyId" : "a3239e5a7a60f8720edcad12146d164d",
+  "time" : {
+    "start" : 1597753462495,
+    "stop" : 1597753470579,
+    "duration" : 8084
+  },
+  "description" : "",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "$(\"open\") http://localhost:8080/",
+      "time" : {
+        "start" : 1597753462496,
+        "stop" : 1597753462579,
+        "duration" : 83
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"button.findBy(match text 'Купить')\") click()",
+      "time" : {
+        "start" : 1597753462626,
+        "stop" : 1597753462802,
+        "duration" : 176
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='input__inner'].findBy(text 'Номер карты')\") $(input)",
+      "time" : {
+        "start" : 1597753462802,
+        "stop" : 1597753462802,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='input__inner'].findBy(text 'Месяц')\") $(input)",
+      "time" : {
+        "start" : 1597753462802,
+        "stop" : 1597753462802,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='input__inner'].findBy(text 'Год')\") $(input)",
+      "time" : {
+        "start" : 1597753462802,
+        "stop" : 1597753462802,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='input__inner'].findBy(text 'Владелец')\") $(input)",
+      "time" : {
+        "start" : 1597753462802,
+        "stop" : 1597753462802,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='input__inner'].findBy(text 'CVC/CVV')\") $(input)",
+      "time" : {
+        "start" : 1597753462803,
+        "stop" : 1597753462803,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='heading heading_size_m heading_theme_alfa-on-white']\") should have(text 'Оплата по карте')",
+      "time" : {
+        "start" : 1597753462803,
+        "stop" : 1597753462869,
+        "duration" : 66
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"[class='form form_size_m form_theme_alfa-on-white']\") should be(visible)",
+      "time" : {
+        "start" : 1597753462869,
+        "stop" : 1597753462951,
+        "duration" : 82
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"input\") set value(4444 4444 4444 4441)",
+      "time" : {
+        "start" : 1597753462952,
+        "stop" : 1597753463243,
+        "duration" : 291
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"input\") set value(10)",
+      "time" : {
+        "start" : 1597753463244,
+        "stop" : 1597753463481,
+        "duration" : 237
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"input\") set value(21)",
+      "time" : {
+        "start" : 1597753463481,
+        "stop" : 1597753463742,
+        "duration" : 261
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"input\") set value(Swift Tereasa)",
+      "time" : {
+        "start" : 1597753463743,
+        "stop" : 1597753464086,
+        "duration" : 343
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"input\") set value(740)",
+      "time" : {
+        "start" : 1597753464086,
+        "stop" : 1597753464397,
+        "duration" : 311
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"button.findBy(text 'Продолжить')\") click()",
+      "time" : {
+        "start" : 1597753464397,
+        "stop" : 1597753464567,
+        "duration" : 170
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"by text: Операция одобрена Банком.\") wait until([visible, 10000])",
+      "time" : {
+        "start" : 1597753464567,
+        "stop" : 1597753470533,
+        "duration" : 5966
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    }, {
+      "name" : "$(\"by text: Ошибка! Банк отказал в проведении операции.\") wait until([hidden, 10000])",
+      "time" : {
+        "start" : 1597753470534,
+        "stop" : 1597753470578,
+        "duration" : 44
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 17,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "host",
+    "value" : "HP-Laptop"
+  }, {
+    "name" : "thread",
+    "value" : "14903@HP-Laptop.Test worker(12)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "ru.netology.web.test.PayCardTest"
+  }, {
+    "name" : "testClass",
+    "value" : "ru.netology.web.test.PayCardTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "shouldSuccessfulPurchaseOfTheTour"
+  }, {
+    "name" : "suite",
+    "value" : "ru.netology.web.test.PayCardTest"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "f3ea2de41713e5cd.json",
+  "parameterValues" : [ ]
+}

@@ -1,0 +1,128 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Product defects",
+    "children" : [ {
+      "name" : "Element should be text 'Неверно указан срок действия карты' {[class='input__inner'].findBy(text 'Месяц')}\nElement: '<span class=\"input__inner\">Месяц</span>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753419207.0.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753419207.0.html\nTimeout: 4 s.",
+      "children" : [ {
+        "name" : "shouldErrorIfEnterMonth00()",
+        "uid" : "61f647a8a2ad1f75",
+        "parentUid" : "83183ad21deb16be5880bbd7125aca61",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753408422,
+          "stop" : 1597753419708,
+          "duration" : 11286
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "83183ad21deb16be5880bbd7125aca61"
+    }, {
+      "name" : "Element should be visible {by text: Ошибка! Банк отказал в проведении операции.}\nElement: '<div class=\"notification__content\" displayed:false></div>'\nActual value: visible:false\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753436543.1.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753436543.1.html\nTimeout: 10 s.",
+      "children" : [ {
+        "name" : "shouldErrorPurchaseTour()",
+        "uid" : "5a73d9b6bd741363",
+        "parentUid" : "992f86ffffa229531a49b07bf88e06f6",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753424059,
+          "stop" : 1597753436935,
+          "duration" : 12876
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "992f86ffffa229531a49b07bf88e06f6"
+    }, {
+      "name" : "Element should be hidden {by text: Операция одобрена Банком.}\nElement: '<div class=\"notification__content\">Операция одобрена Банком.</div>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753453552.2.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753453552.2.html\nTimeout: 10 s.",
+      "children" : [ {
+        "name" : "shouldErrorBuyingTourIfCardDoesNotExist()",
+        "uid" : "3e982503893c3ebc",
+        "parentUid" : "ab5b323fa7f98a54468695e80e1590c9",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753436944,
+          "stop" : 1597753453926,
+          "duration" : 16982
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "ab5b323fa7f98a54468695e80e1590c9"
+    }, {
+      "name" : "Element should be text 'Поле обязательно для заполнения' {[class='input__inner'].findBy(text 'Номер карты')}\nElement: '<span class=\"input__inner\">Номер карты\nНеверный формат</span>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753462123.3.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753462123.3.html\nTimeout: 4 s.",
+      "children" : [ {
+        "name" : "shouldErrorIfAllFieldsAreEmpty()",
+        "uid" : "5e3d8d7a963d2756",
+        "parentUid" : "3c21752882ffd0884179f86d906245fa",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753456582,
+          "stop" : 1597753462489,
+          "duration" : 5907
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "3c21752882ffd0884179f86d906245fa"
+    }, {
+      "name" : "Element should be text 'Поле обязательно для заполнения' {[class='input__inner'].findBy(text 'Номер карты')}\nElement: '<span class=\"input__inner\">Номер карты\nНеверный формат</span>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753485486.4.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753485486.4.html\nTimeout: 4 s.",
+      "children" : [ {
+        "name" : "shouldErrorIfAllFieldsAreLatinCharacter()",
+        "uid" : "9e852da1a7f098fb",
+        "parentUid" : "ed794a53051d9c16de7828eaf898ba84",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753479378,
+          "stop" : 1597753485883,
+          "duration" : 6505
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "ed794a53051d9c16de7828eaf898ba84"
+    }, {
+      "name" : "Element should be text 'Поле обязательно для заполнения' {[class='input__inner'].findBy(text 'Номер карты')}\nElement: '<span class=\"input__inner\">Номер карты\nНеверный формат</span>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753492612.5.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753492612.5.html\nTimeout: 4 s.",
+      "children" : [ {
+        "name" : "shouldErrorIfAllFieldsAreSpecialCharacter()",
+        "uid" : "7e1cfa2e0f3e30a4",
+        "parentUid" : "1491959c16aab9f389d18f117fcbe1c3",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753485889,
+          "stop" : 1597753492982,
+          "duration" : 7093
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "1491959c16aab9f389d18f117fcbe1c3"
+    }, {
+      "name" : "Element should be text 'Поле обязательно для заполнения' {[class='input__inner'].findBy(text 'Номер карты')}\nElement: '<span class=\"input__inner\">Номер карты\nНеверный формат</span>'\nScreenshot: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753501363.6.png\nPage source: file:/home/vitalii/Yandex.Disk/Project/Thesis_work/build/reports/tests/1597753501363.6.html\nTimeout: 4 s.",
+      "children" : [ {
+        "name" : "shouldErrorIfAllFieldsAreCyrillicCharacters()",
+        "uid" : "b155ef3b1e300609",
+        "parentUid" : "c30be03628708cbcf014ba9f595c5ab4",
+        "status" : "failed",
+        "time" : {
+          "start" : 1597753495396,
+          "stop" : 1597753501744,
+          "duration" : 6348
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "c30be03628708cbcf014ba9f595c5ab4"
+    } ],
+    "uid" : "8fb3a91ba5aaf9de24cc8a92edc82b5d"
+  } ]
+}
