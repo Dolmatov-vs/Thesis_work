@@ -45,7 +45,6 @@ public class CardData {
     public static String getMonth(){
         int month = MonthDay.now().getMonthValue();
         month = month + new Random().nextInt(12 - month);
-        Integer.toString(month);
         return String.format("%02d", month);
     }
 
@@ -64,7 +63,6 @@ public class CardData {
     public static String getCvc(){
         Faker faker = new Faker();
         int cvc = faker.number().numberBetween(1, 999);
-        Integer.toString(cvc);
         return String.format("%03d", cvc);
     }
 }
