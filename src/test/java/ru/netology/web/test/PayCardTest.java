@@ -1,7 +1,11 @@
 package ru.netology.web.test;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.CardData;
@@ -35,6 +39,15 @@ public class PayCardTest {
     int timeOut = 10000;
     int currentMonth = MonthDay.now().getMonthValue();
     int currentYear = Year.now().getValue() % 100;
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    }
+    @AfterAll
+    static void tearDownAll(){
+        SelenideLogger.removeListener("AllureSelenide");
+    }
 
     @BeforeEach
     void setup(){
