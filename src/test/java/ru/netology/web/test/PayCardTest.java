@@ -340,5 +340,4 @@ public class PayCardTest {
         statusError.waitUntil(hidden, timeOut);
         fieldCvc.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
     }
-
 }
