@@ -2,10 +2,12 @@ Thumbs.db*
 .DS_Store*
 HELP.md
 .gradle
+.allure
 build/
 target/
 gate-simulator/node_modules/*
 data/
+#!/build/repports
 
 ### STS ###
 .apt_generated
