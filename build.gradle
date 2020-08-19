@@ -32,6 +32,8 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-simple:1.7.30'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'io.qameta.allure:allure-selenide:2.13.5'
+
+    testImplementation 'commons-dbutils:commons-dbutils:1.7' // Apache Commons DbUtils
 }
 
 test {
