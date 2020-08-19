@@ -16,14 +16,13 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.util.Locale;
 
-import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class PayCardTest {
+public class PayCreditTest {
 
     SelenideElement statusOk = $(byText("Операция одобрена Банком."));
     SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
@@ -69,7 +68,7 @@ public class PayCardTest {
     void shouldSuccessfulPurchaseOfTheTour() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -83,7 +82,7 @@ public class PayCardTest {
     void shouldErrorPurchaseTour() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getDeclinedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -97,7 +96,7 @@ public class PayCardTest {
     void shouldErrorBuyingTourIfCardDoesNotExist() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getInvalidCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -111,7 +110,7 @@ public class PayCardTest {
     void shouldErrorIfAllFieldsAreEmpty() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(null);
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 null,
                 null,
@@ -130,7 +129,7 @@ public class PayCardTest {
     void shouldErrorIfAllFieldsAreLatinCharacter() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Card");
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "Mo",
                 "Ye",
@@ -149,7 +148,7 @@ public class PayCardTest {
     void shouldErrorIfAllFieldsAreCyrillicCharacters() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Карта");
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "Месяц",
                 "Год",
@@ -168,7 +167,7 @@ public class PayCardTest {
     void shouldErrorIfAllFieldsAreSpecialCharacter() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(specificSymbols);
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 specificSymbols,
                 specificSymbols,
@@ -188,7 +187,7 @@ public class PayCardTest {
     void shouldErrorIfFieldCardNumberEnterLess16Digit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("4444 4444 4444 444");
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -203,7 +202,7 @@ public class PayCardTest {
     void shouldErrorIfFieldCardNumberEnterMore16Digit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber() + "1");
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -218,7 +217,7 @@ public class PayCardTest {
     void shouldErrorIfEnterMonth00() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "00",
                 cardInfo.getYear(),
@@ -233,7 +232,7 @@ public class PayCardTest {
     void shouldErrorIfEnterMonth13() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "13",
                 cardInfo.getYear(),
@@ -248,7 +247,7 @@ public class PayCardTest {
     void shouldErrorIfFieldMonthEnterOneDigit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "0",
                 cardInfo.getYear(),
@@ -263,7 +262,7 @@ public class PayCardTest {
     void shouldSuccessfulIfCardExpiredInCurrentMonthCurrentYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 String.format("%02d", currentMonth),
                 String.format("%02d", currentYear),
@@ -277,7 +276,7 @@ public class PayCardTest {
     void shouldErrorIfCardExpiredInLastMonthCurrentYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 String.format("%02d", subtractMonth(currentMonth)),
                 String.format("%02d", currentYear),
@@ -292,7 +291,7 @@ public class PayCardTest {
     void shouldErrorIfCardExpiresInCurrentMonthLastYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 String.format("%02d", currentMonth),
                 String.format("%02d", currentYear - 1),
@@ -307,7 +306,7 @@ public class PayCardTest {
     void shouldSuccessfulIfCardExpiresInDecemberAfterFiveYear() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "12",
                 String.format("%02d", currentYear + 5),
@@ -321,7 +320,7 @@ public class PayCardTest {
     void shouldSuccessfulIfCardExpirationDateDoesNotExist() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 "01",
                 String.format("%02d", currentYear + 6),
@@ -336,7 +335,7 @@ public class PayCardTest {
     void shouldErrorIfEnterCvc000() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -351,7 +350,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerStartsSpace() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -366,7 +365,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerEndsSpace() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -381,7 +380,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerStartsApostrophe() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -396,7 +395,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerEndsApostrophe() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -411,7 +410,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerStartsDash() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -426,7 +425,7 @@ public class PayCardTest {
     void shouldErrorIfFieldOwnerEndsDash() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
@@ -441,7 +440,7 @@ public class PayCardTest {
     void shouldErrorIfInFieldOwnerEnterOneWord() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
-        homePage.buyCard().buyTour(
+        homePage.buyCredit().creditBuyTour(
                 cardInfo.getCardNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),

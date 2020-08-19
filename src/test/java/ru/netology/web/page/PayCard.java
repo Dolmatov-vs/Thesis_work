@@ -9,12 +9,12 @@ import static com.codeborne.selenide.Selenide.*;
 public class PayCard {
     private SelenideElement heading = $("[class='heading heading_size_m heading_theme_alfa-on-white']");
     private SelenideElement paymentField = $("[class='form form_size_m form_theme_alfa-on-white']");
-    private ElementsCollection fieldset = $$("[class='input__inner']");
-    private SelenideElement setCardNumber = fieldset.findBy(text("Номер карты")).$("input");
-    private SelenideElement setMonth = fieldset.findBy(text("Месяц")).$("input");
-    private SelenideElement setYear = fieldset.findBy(text("Год")).$("input");
-    private SelenideElement setOwner = fieldset.findBy(text("Владелец")).$("input");
-    private SelenideElement setCvc = fieldset.findBy(text("CVC/CVV")).$("input");
+    private ElementsCollection fieldSet = $$("[class='input__inner']");
+    private SelenideElement setCardNumber = fieldSet.findBy(text("Номер карты")).$("input");
+    private SelenideElement setMonth = fieldSet.findBy(text("Месяц")).$("input");
+    private SelenideElement setYear = fieldSet.findBy(text("Год")).$("input");
+    private SelenideElement setOwner = fieldSet.findBy(text("Владелец")).$("input");
+    private SelenideElement setCvc = fieldSet.findBy(text("CVC/CVV")).$("input");
     private SelenideElement proceed = $$("button").findBy(text("Продолжить"));
 
 
