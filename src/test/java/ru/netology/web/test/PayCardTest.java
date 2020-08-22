@@ -66,7 +66,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldSuccessfulPurchaseOfTheTour() {
+    void shouldSuccessfulPurchaseOfTheTourIfCardApproved() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
@@ -80,7 +80,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorPurchaseTour() {
+    void shouldErrorPurchaseTourIfCardDeclined() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getDeclinedCardNumber());
         homePage.buyCard().buyTour(
@@ -132,8 +132,8 @@ public class PayCardTest {
         val cardInfo = CardData.getCardInfo("Card");
         homePage.buyCard().buyTour(
                 cardInfo.getCardNumber(),
-                "Mo",
-                "Ye",
+                "Month",
+                "Year",
                 "Ivan Ivanov",
                 "Cvc");
         statusError.waitUntil(hidden, timeOut);
@@ -160,7 +160,7 @@ public class PayCardTest {
         fieldCardNumber.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldMonth.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldYear.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
-        fieldOwner.shouldBe(visible, text(incorrectFormat), cssValue("color", redColorError));
+        fieldOwner.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
         fieldCvc.shouldBe(visible, text(requiredField), cssValue("color", redColorError));
     }
 
@@ -200,7 +200,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldErrorIfFieldCardNumberEnterMore16Digit() {
+    void shouldApplicationSentIfFieldCardNumberEnterMore16Digit() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber() + "1");
         homePage.buyCard().buyTour(
@@ -318,7 +318,7 @@ public class PayCardTest {
     }
 
     @Test
-    void shouldSuccessfulIfCardExpirationDateDoesNotExist() {
+    void shouldErrorIfCardExpirationDateDoesNotExist() {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
