@@ -6,7 +6,7 @@
 0. **Корректность внесения записей в БД используя MySql**
 
 Более подробно с test-cases можно ознакомить [здесь](https://docs.google.com/spreadsheets/d/1xa7AcYKs1gozgwbrI0i0iWxrYKfq_Ybl8vElcOmqJT8/edit?usp=sharing),
-или скачав таблицу [здесь](https://github.com/Dolmatov-vs/Thesis_work/blob/master/test-cases.xlsx).
+или скачав файл test-cases.xlsx [отсюда](https://github.com/Dolmatov-vs/Thesis_work/blob/master/test-cases.xlsx).
     
 #### Перечень используемых инструментов с обоснованием выбора:
 1. **Docker (4 контейнера)**:  
