@@ -15,92 +15,103 @@ import static ru.netology.web.data.CardDataJSON.*;
 
 public class SqlRequestTest {
 
+    String requestBuyCard = "SELECT credit_id, status, amount FROM order_entity INNER JOIN payment_entity ON order_entity.payment_id = payment_entity.transaction_id ORDER BY order_entity.created;";
+    String requestBuyCredit = "SELECT credit_id, status FROM order_entity INNER JOIN credit_request_entity ON order_entity.payment_id = credit_request_entity.bank_id ORDER BY order_entity.created;";
+
     int statusCodeOK = 200;
     int statusServerError = 500;
 
     @Test
     void buyCardIfCardApproved() throws SQLException {
-        val countSQL = "SELECT payment_id, credit_id, status, amount FROM order_entity INNER JOIN payment_entity ON order_entity.payment_id = payment_entity.transaction_id;";
+        val countSQL = requestBuyCard;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
+        val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
         newBuy(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
 
-        val all = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        assertEquals("APPROVED", all.get(all.size() - 1).getStatus());
-        assertEquals(null, all.get(all.size() - 1).getCredit_id());
-        assertEquals("4500000", all.get(all.size() - 1).getAmount());
+        assertEquals(list.size()+1, newList.size());
+        assertEquals("APPROVED", newList.get(newList.size() - 1).getStatus());
+        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertEquals("4500000", newList.get(newList.size() - 1).getAmount());
     }
 
     @Test
     void buyCardIfCardDeclined() throws SQLException {
-        val countSQL = "SELECT payment_id, credit_id, status, amount FROM order_entity INNER JOIN payment_entity ON order_entity.payment_id = payment_entity.transaction_id;";
+        val countSQL = requestBuyCard;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
+        val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
         newBuy(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
 
-        val all = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        assertEquals("DECLINED", all.get(all.size() - 1).getStatus());
-        assertEquals(null, all.get(all.size() - 1).getCredit_id());
-        assertEquals(null, all.get(all.size() - 1).getAmount());
+        assertEquals(list.size()+1, newList.size());
+        assertEquals("DECLINED", newList.get(newList.size() - 1).getStatus());
+        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertEquals(null, newList.get(newList.size() - 1).getAmount());
     }
 
     @Test
     void buyCardIfCardInvalid() throws SQLException {
-        val countSQL = "SELECT payment_id, credit_id, status, amount FROM order_entity INNER JOIN payment_entity ON order_entity.payment_id = payment_entity.transaction_id;";
+        val countSQL = requestBuyCard;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
         newBuy(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
 
-        val listNew = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals(list.size(), listNew.size());
+        assertEquals(list.size(), newList.size());
     }
 
     @Test
     void buyCreditIfCardApproved() throws SQLException {
-        val countSQL = "SELECT credit_id, status FROM order_entity INNER JOIN credit_request_entity ON order_entity.payment_id = credit_request_entity.bank_id;";
+        val countSQL = requestBuyCredit;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
+        val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
         newCredit(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
 
-        val all = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals("APPROVED", all.get(all.size() - 1).getStatus());
-        assertEquals(null, all.get(all.size() - 1).getCredit_id());
+        assertEquals(list.size()+1, newList.size());
+        assertEquals("APPROVED", newList.get(newList.size() - 1).getStatus());
+        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
     void buyCreditIfCardDeclined() throws SQLException {
-        val countSQL = "SELECT credit_id, status FROM order_entity INNER JOIN credit_request_entity ON order_entity.payment_id = credit_request_entity.bank_id;";
+        val countSQL = requestBuyCredit;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
+        val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
         newCredit(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
 
-        val all = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals("DECLINED", all.get(all.size() - 1).getStatus());
-        assertEquals(null, all.get(all.size() - 1).getCredit_id());
+        assertEquals(list.size()+1, newList.size());
+        assertEquals("DECLINED", newList.get(newList.size() - 1).getStatus());
+        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
     void buyCreditIfCardInvalid() throws SQLException {
-        val countSQL = "SELECT credit_id, status FROM order_entity INNER JOIN credit_request_entity ON order_entity.payment_id = credit_request_entity.bank_id;";
+        val countSQL = requestBuyCredit;
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
         newCredit(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
 
-        val listNew = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
+        val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals(list.size(), listNew.size());
+        assertEquals(list.size(), newList.size());
     }
 }
