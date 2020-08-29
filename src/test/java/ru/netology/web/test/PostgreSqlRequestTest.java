@@ -1,8 +1,12 @@
 package ru.netology.web.test;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.mode.ListOrderOnCard;
 import ru.netology.web.mode.ListOrderOnCredit;
@@ -21,6 +25,16 @@ public class PostgreSqlRequestTest {
     int statusCodeOK = 200;
     int statusServerError = 500;
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("AllureSelenide");
+    }
+
     @Test
     void buyCardIfCardApproved() throws SQLException {
         val countSQL = requestBuyCard;
@@ -28,11 +42,11 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        newBuy(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
+        newBuy(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(), getYear(), statusCodeOK);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
         assertEquals("APPROVED", newList.get(newList.size() - 1).getStatus());
         assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
         assertEquals("4500000", newList.get(newList.size() - 1).getAmount());
@@ -45,11 +59,11 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        newBuy(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
+        newBuy(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(), getYear(), statusCodeOK);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCredit.class));
 
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
         assertEquals("DECLINED", newList.get(newList.size() - 1).getStatus());
         assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
         assertEquals(null, newList.get(newList.size() - 1).getAmount());
@@ -62,7 +76,7 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        newBuy(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
+        newBuy(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(), getYear(), statusServerError);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
@@ -76,11 +90,11 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        newCredit(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
+        newCredit(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(), getYear(), statusCodeOK);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
         assertEquals("APPROVED", newList.get(newList.size() - 1).getStatus());
         assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
     }
@@ -92,11 +106,11 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        newCredit(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
+        newCredit(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(), getYear(), statusCodeOK);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        assertEquals(list.size()+1, newList.size());
+        assertEquals(list.size() + 1, newList.size());
         assertEquals("DECLINED", newList.get(newList.size() - 1).getStatus());
         assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
     }
@@ -108,7 +122,7 @@ public class PostgreSqlRequestTest {
         val runner = new QueryRunner();
         val list = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
-        newCredit(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
+        newCredit(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(), getYear(), statusServerError);
 
         val newList = runner.query(conn, countSQL, new BeanListHandler<>(ListOrderOnCard.class));
 
