@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.web.data.CardDataJSON.*;
 
-public class SqlRequestTest {
+public class MySqlRequestTest {
 
     String requestBuyCard = "SELECT credit_id, status, amount FROM order_entity INNER JOIN payment_entity ON order_entity.payment_id = payment_entity.transaction_id ORDER BY order_entity.created;";
     String requestBuyCredit = "SELECT credit_id, status FROM order_entity INNER JOIN credit_request_entity ON order_entity.payment_id = credit_request_entity.bank_id ORDER BY order_entity.created;";
