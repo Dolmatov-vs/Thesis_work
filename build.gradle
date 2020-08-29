@@ -35,6 +35,7 @@ dependencies {
 
     testImplementation 'commons-dbutils:commons-dbutils:1.7' // Apache Commons DbUtils
     testImplementation 'mysql:mysql-connector-java:8.0.21'
+    testImplementation 'org.postgresql:postgresql:42.2.16'
 
     testImplementation 'io.rest-assured:rest-assured:4.3.1'
     testImplementation 'com.google.code.gson:gson:2.8.6'
