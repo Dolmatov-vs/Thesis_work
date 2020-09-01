@@ -11,30 +11,33 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.CardData;
 import ru.netology.web.page.HomePage;
+import ru.netology.web.page.elements.PaymentField;
 
 import java.time.MonthDay;
 import java.time.Year;
 import java.util.Locale;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PayCreditTest {
 
-    private SelenideElement statusOk = $(byText("Операция одобрена Банком."));
-    private SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
-    private SelenideElement fieldCardNumber = $$("[class='input__inner']").findBy(text("Номер карты"));
-    private SelenideElement fieldMonth = $$("[class='input__inner']").findBy(text("Месяц"));
-    private SelenideElement fieldYear = $$("[class='input__inner']").findBy(text("Год"));
-    private SelenideElement fieldOwner = $$("[class='input__inner']").findBy(text("Владелец"));
-    private SelenideElement fieldCvc = $$("[class='input__inner']").findBy(text("CVC/CVV"));
+    private SelenideElement statusOk = new PaymentField().getStatusOk();
+    private SelenideElement statusError = new PaymentField().getStatusError();
+
+    private SelenideElement fieldCardNumber = new PaymentField().getFieldCardNumber();
+    private SelenideElement fieldMonth = new PaymentField().getFieldMonth();
+    private SelenideElement fieldYear = new PaymentField().getFieldYear();
+    private SelenideElement fieldOwner = new PaymentField().getFieldOwner();
+    private SelenideElement fieldCvc = new PaymentField().getFieldCvc();
 
     private String redColorError = "rgba(255, 92, 92, 1)";
     private String incorrectFormat = "Неверный формат";
     private String requiredField = "Поле обязательно для заполнения";
+    private String cardExpired = "Истёк срок действия карты";
+    private String cardExpirationNotCorrect = "Неверно указан срок действия карты";
     private String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
 
     private int timeOut = 10000;
@@ -46,7 +49,8 @@ public class PayCreditTest {
     public String subtractMonth(int currentMonth) {
         if (currentMonth == 1)
             return "12";
-        return String.format("%02d", currentMonth--);
+        currentMonth--;
+        return String.format("%02d", currentMonth);
     }
 
     @BeforeAll
@@ -225,7 +229,7 @@ public class PayCreditTest {
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
-        fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(cardExpirationNotCorrect), cssValue("color", redColorError));
     }
 
     @Test
@@ -240,7 +244,7 @@ public class PayCreditTest {
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
-        fieldMonth.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(cardExpirationNotCorrect), cssValue("color", redColorError));
     }
 
     @Test
@@ -278,13 +282,13 @@ public class PayCreditTest {
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCredit().creditBuyTour(
                 cardInfo.getNumber(),
-                String.format("%02d", subtractMonth(currentMonth)),
+                subtractMonth(currentMonth),
                 String.format("%02d", currentYear),
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
-        fieldMonth.shouldBe(visible, text("Истёк срок действия карты"), cssValue("color", redColorError));
+        fieldMonth.shouldBe(visible, text(cardExpired), cssValue("color", redColorError));
     }
 
     @Test
@@ -299,7 +303,7 @@ public class PayCreditTest {
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
-        fieldYear.shouldBe(visible, text("Истёк срок действия карты"), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(cardExpired), cssValue("color", redColorError));
     }
 
     @Test
@@ -328,7 +332,7 @@ public class PayCreditTest {
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
-        fieldYear.shouldBe(visible, text("Неверно указан срок действия карты"), cssValue("color", redColorError));
+        fieldYear.shouldBe(visible, text(cardExpirationNotCorrect), cssValue("color", redColorError));
     }
 
     @Test
