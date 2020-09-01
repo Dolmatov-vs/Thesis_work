@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class ListOrderOnCredit {
     private String credit_id;
     private String status;
-    private String amount;
 }
