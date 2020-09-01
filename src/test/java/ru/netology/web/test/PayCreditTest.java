@@ -24,22 +24,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PayCreditTest {
 
-    SelenideElement statusOk = $(byText("Операция одобрена Банком."));
-    SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
-    SelenideElement fieldCardNumber = $$("[class='input__inner']").findBy(text("Номер карты"));
-    SelenideElement fieldMonth = $$("[class='input__inner']").findBy(text("Месяц"));
-    SelenideElement fieldYear = $$("[class='input__inner']").findBy(text("Год"));
-    SelenideElement fieldOwner = $$("[class='input__inner']").findBy(text("Владелец"));
-    SelenideElement fieldCvc = $$("[class='input__inner']").findBy(text("CVC/CVV"));
+    private SelenideElement statusOk = $(byText("Операция одобрена Банком."));
+    private SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
+    private SelenideElement fieldCardNumber = $$("[class='input__inner']").findBy(text("Номер карты"));
+    private SelenideElement fieldMonth = $$("[class='input__inner']").findBy(text("Месяц"));
+    private SelenideElement fieldYear = $$("[class='input__inner']").findBy(text("Год"));
+    private SelenideElement fieldOwner = $$("[class='input__inner']").findBy(text("Владелец"));
+    private SelenideElement fieldCvc = $$("[class='input__inner']").findBy(text("CVC/CVV"));
 
-    String redColorError = "rgba(255, 92, 92, 1)";
-    String incorrectFormat = "Неверный формат";
-    String requiredField = "Поле обязательно для заполнения";
-    String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
+    private String redColorError = "rgba(255, 92, 92, 1)";
+    private String incorrectFormat = "Неверный формат";
+    private String requiredField = "Поле обязательно для заполнения";
+    private String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
 
-    int timeOut = 10000;
-    int currentMonth = MonthDay.now().getMonthValue();
-    int currentYear = Year.now().getValue() % 100;
+    private int timeOut = 10000;
+    private int currentMonth = MonthDay.now().getMonthValue();
+    private int currentYear = Year.now().getValue() % 100;
 
     Faker faker = new Faker(new Locale("en"));
 

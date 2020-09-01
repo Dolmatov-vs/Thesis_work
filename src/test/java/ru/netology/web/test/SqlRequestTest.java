@@ -15,14 +15,14 @@ import static ru.netology.web.data.CardDataJSON.*;
 
 public class SqlRequestTest {
 
-    String urlPostgreSql = "jdbc:postgresql://localhost:5432/app";
-    String urlMySql = "jdbc:mysql://localhost:3306/app";
-    String approved = "APPROVED";
-    String declined = "DECLINED";
-    String amount = "4500000";
+    private String urlPostgreSql = "jdbc:postgresql://localhost:5432/app";
+    private String urlMySql = "jdbc:mysql://localhost:3306/app";
+    private String approved = "APPROVED";
+    private String declined = "DECLINED";
+    private String amount = "4500000";
 
-    int statusCodeOK = 200;
-    int statusServerError = 500;
+    private int statusCodeOK = 200;
+    private int statusServerError = 500;
 
     @BeforeAll
     static void setUpAll() {
