@@ -1,4 +1,4 @@
-package ru.netology.web.mode;
+package ru.netology.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

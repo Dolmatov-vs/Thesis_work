@@ -3,8 +3,8 @@ package ru.netology.web.db;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import ru.netology.web.mode.ListOrderOnCard;
-import ru.netology.web.mode.ListOrderOnCredit;
+import ru.netology.web.model.ListOrderOnCard;
+import ru.netology.web.model.ListOrderOnCredit;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
