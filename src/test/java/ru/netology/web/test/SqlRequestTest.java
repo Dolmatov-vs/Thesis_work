@@ -12,7 +12,7 @@ import ru.netology.web.db.SqlRequest;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.netology.web.data.CardJSON.*;
+import static ru.netology.web.json.BuyTour.*;
 
 public class SqlRequestTest {
 

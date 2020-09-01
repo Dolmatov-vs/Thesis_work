@@ -1,14 +1,15 @@
-package ru.netology.web.data;
+package ru.netology.web.json;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import ru.netology.web.data.CardData;
 
 import static io.restassured.RestAssured.given;
 import static ru.netology.web.data.CardData.getCardInfo;
 
-public class CardJSON {
+public class BuyTour {
 
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
