@@ -70,10 +70,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(visible, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -84,10 +84,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getDeclinedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(visible, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -98,10 +98,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getInvalidCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(visible, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -112,7 +112,7 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(null);
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 null,
                 null,
                 null,
@@ -131,7 +131,7 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Card");
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "Month",
                 "Year",
                 "Ivan Ivanov",
@@ -150,7 +150,7 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("Карта");
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "Месяц",
                 "Год",
                 "Владелец",
@@ -169,7 +169,7 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(specificSymbols);
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 specificSymbols,
                 specificSymbols,
                 specificSymbols,
@@ -189,10 +189,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo("4444 4444 4444 444");
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -204,10 +204,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber() + "1");
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(visible, timeOut);
@@ -219,10 +219,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "00",
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -234,10 +234,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "13",
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -249,10 +249,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "0",
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -264,10 +264,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 String.format("%02d", currentMonth),
                 String.format("%02d", currentYear),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(visible, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -278,10 +278,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 String.format("%02d", subtractMonth(currentMonth)),
                 String.format("%02d", currentYear),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -293,10 +293,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 String.format("%02d", currentMonth),
                 String.format("%02d", currentYear - 1),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -308,10 +308,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "12",
                 String.format("%02d", currentYear + 5),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(visible, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -322,10 +322,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 "01",
                 String.format("%02d", currentYear + 6),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -337,10 +337,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner(),
+                cardInfo.getHolder(),
                 "000");
         statusOk.waitUntil(hidden, timeOut);
         statusError.waitUntil(hidden, timeOut);
@@ -352,10 +352,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                " " + cardInfo.getOwner(),
+                " " + cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -367,10 +367,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner() + " ",
+                cardInfo.getHolder() + " ",
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -382,10 +382,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                "'" + cardInfo.getOwner(),
+                "'" + cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -397,10 +397,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner() + "'",
+                cardInfo.getHolder() + "'",
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -412,10 +412,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                "-" + cardInfo.getOwner(),
+                "-" + cardInfo.getHolder(),
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -427,10 +427,10 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
-                cardInfo.getOwner() + "-",
+                cardInfo.getHolder() + "-",
                 cardInfo.getCvc());
         statusError.waitUntil(hidden, timeOut);
         statusOk.waitUntil(hidden, timeOut);
@@ -442,7 +442,7 @@ public class PayCardTest {
         val homePage = new HomePage();
         val cardInfo = CardData.getCardInfo(CardData.getApprovedCardNumber());
         homePage.buyCard().buyTour(
-                cardInfo.getCardNumber(),
+                cardInfo.getNumber(),
                 cardInfo.getMonth(),
                 cardInfo.getYear(),
                 faker.name().lastName(),

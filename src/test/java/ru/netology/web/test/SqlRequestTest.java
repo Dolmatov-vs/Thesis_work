@@ -6,12 +6,13 @@ import lombok.val;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import ru.netology.web.data.CardData;
 import ru.netology.web.db.SqlRequest;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.netology.web.data.CardDataJSON.*;
+import static ru.netology.web.data.CardJSON.*;
 
 public class SqlRequestTest {
 
@@ -37,7 +38,8 @@ public class SqlRequestTest {
     @Test
     void postgreSqlBuyCardIfCardApproved() throws SQLException {
         val list = new SqlRequest().getListOrderOnCard(urlPostgreSql);
-        newBuy(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(), getYear(), statusCodeOK);
+        val newCard = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        newBuy(newCard, statusCodeOK);
         val newList = new SqlRequest().getListOrderOnCard(urlPostgreSql);
 
         assertEquals(list.size() + 1, newList.size());
@@ -49,7 +51,8 @@ public class SqlRequestTest {
     @Test
     void postgreSqlBuyCardIfCardDeclined() throws SQLException {
         val list = new SqlRequest().getListOrderOnCard(urlPostgreSql);
-        newBuy(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(), getYear(), statusCodeOK);
+        val newCard = CardData.getCardInfo(CardData.getDeclinedCardNumber());
+        newBuy(newCard, statusCodeOK);
         val newList = new SqlRequest().getListOrderOnCard(urlPostgreSql);
 
         assertEquals(list.size() + 1, newList.size());
@@ -62,7 +65,8 @@ public class SqlRequestTest {
     void postgreSqlBuyCardIfCardInvalid() throws SQLException {
 
         val list = new SqlRequest().getListOrderOnCard(urlPostgreSql);
-        newBuy(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(), getYear(), statusServerError);
+        val newCard = CardData.getCardInfo(CardData.getInvalidCardNumber());
+        newBuy(newCard, statusServerError);
         val newList = new SqlRequest().getListOrderOnCard(urlPostgreSql);
 
         assertEquals(list.size(), newList.size());
@@ -72,7 +76,8 @@ public class SqlRequestTest {
     void postgreSqlBuyCreditIfCardApproved() throws SQLException {
 
         val list = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
-        newCredit(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(), getYear(), statusCodeOK);
+        val newCard = CardData.getCardInfo(CardData.getApprovedCardNumber());
+        newCredit(newCard, statusCodeOK);
         val newList = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
 
         assertEquals(list.size() + 1, newList.size());
@@ -83,7 +88,8 @@ public class SqlRequestTest {
     @Test
     void postgreSqlBuyCreditIfCardDeclined() throws SQLException {
         val list = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
-        newCredit(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(), getYear(), statusCodeOK);
+        val newCard = CardData.getCardInfo(CardData.getDeclinedCardNumber());
+        newCredit(newCard, statusCodeOK);
         val newList = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
 
         assertEquals(list.size() + 1, newList.size());
@@ -94,75 +100,82 @@ public class SqlRequestTest {
     @Test
     void postgreSqlBuyCreditIfCardInvalid() throws SQLException {
         val list = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
-        newCredit(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(), getYear(), statusServerError);
+        val newCard = CardData.getCardInfo(CardData.getInvalidCardNumber());
+        newCredit(newCard, statusServerError);
         val newList = new SqlRequest().getListOrderOnCredit(urlPostgreSql);
 
         assertEquals(list.size(), newList.size());
     }
 
 
-    @Test
-    void mySqlBuyCardIfCardApproved() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCard(urlMySql);
-        newBuy(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
-        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
-
-        assertEquals(list.size()+1, newList.size());
-        assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-        assertEquals(amount, newList.get(newList.size() - 1).getAmount());
-    }
-
-    @Test
-    void mySqlBuyCardIfCardDeclined() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCard(urlMySql);
-        newBuy(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
-        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
-
-        assertEquals(list.size()+1, newList.size());
-        assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-        assertEquals(null, newList.get(newList.size() - 1).getAmount());
-    }
-
-    @Test
-    void mySqlBuyCardIfCardInvalid() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCard(urlMySql);
-        newBuy(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
-        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
-
-        assertEquals(list.size(), newList.size());
-    }
-
-
-    @Test
-    void mySqlBuyCreditIfCardApproved() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
-        newCredit(getCvc(), getOwner(), getMonth(), getApprovedCardNumber(),getYear(), statusCodeOK);
-        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
-
-        assertEquals(list.size()+1, newList.size());
-        assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-    }
-
-    @Test
-    void mySqlBuyCreditIfCardDeclined() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
-        newCredit(getCvc(), getOwner(), getMonth(), getDeclinedCardNumber(),getYear(), statusCodeOK);
-        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
-
-        assertEquals(list.size()+1, newList.size());
-        assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-    }
-
-    @Test
-    void mySqlBuyCreditIfCardInvalid() throws SQLException {
-        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
-        newCredit(getCvc(), getOwner(), getMonth(), getInvalidCardNumber(),getYear(), statusServerError);
-        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
-
-        assertEquals(list.size(), newList.size());
-    }
+//    @Test
+//    void mySqlBuyCardIfCardApproved() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCard(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getApprovedCardNumber());
+//        newBuy(newCard, statusCodeOK);
+//        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
+//
+//        assertEquals(list.size()+1, newList.size());
+//        assertEquals(approved, newList.get(newList.size() - 1).getStatus());
+//        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+//        assertEquals(amount, newList.get(newList.size() - 1).getAmount());
+//    }
+//
+//    @Test
+//    void mySqlBuyCardIfCardDeclined() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCard(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getDeclinedCardNumber());
+//        newBuy(newCard, statusCodeOK);
+//        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
+//
+//        assertEquals(list.size()+1, newList.size());
+//        assertEquals(declined, newList.get(newList.size() - 1).getStatus());
+//        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+//        assertEquals(null, newList.get(newList.size() - 1).getAmount());
+//    }
+//
+//    @Test
+//    void mySqlBuyCardIfCardInvalid() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCard(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getInvalidCardNumber());
+//        newBuy(newCard, statusServerError);
+//        val newList = new SqlRequest().getListOrderOnCard(urlMySql);
+//
+//        assertEquals(list.size(), newList.size());
+//    }
+//
+//
+//    @Test
+//    void mySqlBuyCreditIfCardApproved() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getApprovedCardNumber());
+//        newCredit(newCard, statusCodeOK);
+//        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
+//
+//        assertEquals(list.size()+1, newList.size());
+//        assertEquals(approved, newList.get(newList.size() - 1).getStatus());
+//        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+//    }
+//
+//    @Test
+//    void mySqlBuyCreditIfCardDeclined() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getDeclinedCardNumber());
+//        newCredit(newCard, statusCodeOK);
+//        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
+//
+//        assertEquals(list.size()+1, newList.size());
+//        assertEquals(declined, newList.get(newList.size() - 1).getStatus());
+//        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+//    }
+//
+//    @Test
+//    void mySqlBuyCreditIfCardInvalid() throws SQLException {
+//        val list = new SqlRequest().getListOrderOnCredit(urlMySql);
+//        val newCard = CardData.getCardInfo(CardData.getInvalidCardNumber());
+//        newCredit(newCard, statusServerError);
+//        val newList = new SqlRequest().getListOrderOnCredit(urlMySql);
+//
+//        assertEquals(list.size(), newList.size());
+//    }
 }

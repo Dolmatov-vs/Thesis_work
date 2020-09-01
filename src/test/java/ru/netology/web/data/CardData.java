@@ -14,20 +14,15 @@ public class CardData {
 
     @Value
     public static class CardInfo {
-        private String cardNumber;
-        private String month;
-        private String year;
-        private String owner;
         private String cvc;
+        private String holder;
+        private String month;
+        private String number;
+        private String year;
     }
 
     public static CardInfo getCardInfo(String cardNumber) {
-        return new CardInfo(
-                cardNumber,
-                getMonth(),
-                getYear(),
-                getOwner(),
-                getCvc());
+        return new CardInfo(getCvc(), getOwner(), getMonth(), cardNumber, getYear());
     }
 
     public static String getApprovedCardNumber() {
