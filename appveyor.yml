@@ -1,6 +1,6 @@
 image: Ubuntu  # образ для сборки
 
-stack: openjdk 11, mysql 8, node 14
+stack: jdk 11, mysql 8, node 14
 
 branches:
   only:
