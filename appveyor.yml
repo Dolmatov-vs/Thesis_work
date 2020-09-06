@@ -1,5 +1,8 @@
 image: Ubuntu  # образ для сборки
 
+services:
+  - docker
+
 stack: jdk 11, mysql 8, node 14
 
 branches:
@@ -10,7 +13,7 @@ build: off  # будем использовать свой скрипт сбор
 
 install:
   # запускаем SUT (& означает, что в фоновом режиме - не блокируем терминал для запуска тестов)
-  docker-compose -f docker-compose-mysql.yml up &
+  - docker-compose -f docker-compose-mysql.yml up &
 
 build_script:
   - ./gradlew clean test --info -Dselenide.headless=true -DjdbcUrl=jdbc:mysql://localhost:3306/app  # запускаем тест, флаг --info позволяет выводить больше информации
