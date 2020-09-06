@@ -22,12 +22,13 @@ public class TerminalPos {
     private SelenideElement fieldCvc = cardFields.findBy(text("CVC/CVV"));
     private SelenideElement proceed = $$("button").findBy(text("Продолжить"));
 
-    public void payment(String cardNumber, String month, String year, String owner, String cvc) {
+    public SelenideElementAssert payment(String cardNumber, String month, String year, String owner, String cvc) {
         fieldCardNumber.$("input").setValue(cardNumber);
         fieldMonth.$("input").setValue(month);
         fieldYear.$("input").setValue(year);
         fieldOwner.$("input").setValue(owner);
         fieldCvc.$("input").setValue(cvc);
         proceed.click();
+        return new SelenideElementAssert();
     }
 }

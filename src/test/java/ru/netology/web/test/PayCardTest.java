@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.CardData;
 import ru.netology.web.page.HomePage;
+import ru.netology.web.page.elements.SelenideElementAssert;
 
 import java.time.MonthDay;
 import java.time.Year;
@@ -109,13 +110,14 @@ public class PayCardTest {
                 null,
                 null);
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCardNumber().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldMonth().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldYear().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldOwner().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldCvc().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
+        new SelenideElementAssert().shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        new SelenideElementAssert().shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField);
+        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField);
+        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField);
+        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldOwner(), requiredField);
+        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField);
     }
 
     @Test
