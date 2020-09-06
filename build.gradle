@@ -44,4 +44,5 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+    systemProperty 'jdbcUrl', System.getProperty('jdbcUrl')
 }
