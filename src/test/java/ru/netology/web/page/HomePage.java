@@ -9,13 +9,13 @@ public class HomePage {
     private SelenideElement buyCard = $$("button").findBy(matchText("Купить"));
     private SelenideElement buyCredit = $$("button").findBy(matchText("Купить в кредит"));
 
-    public PayCard buyCard() {
+    public PayCardPage buyCard() {
         buyCard.click();
-        return new PayCard();
+        return new PayCardPage();
     }
 
-    public PayCredit buyCredit() {
+    public PayCreditPage buyCredit() {
         buyCredit.click();
-        return new PayCredit();
+        return new PayCreditPage();
     }
 }

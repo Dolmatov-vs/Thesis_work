@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 @Data
-public class PaymentField {
+public class TerminalPos {
 
     private SelenideElement statusOk = $(byText("Операция одобрена Банком."));
     private SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));

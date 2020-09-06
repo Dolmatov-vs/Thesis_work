@@ -11,7 +11,7 @@ import ru.netology.web.db.SqlRequest;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.netology.web.json.BuyTour.*;
 
 public class SqlRequestTest {
@@ -44,7 +44,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
         assertEquals(amount, newList.get(newList.size() - 1).getAmount());
     }
 
@@ -57,8 +57,8 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-        assertEquals(null, newList.get(newList.size() - 1).getAmount());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getAmount());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size()+1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
         assertEquals(amount, newList.get(newList.size() - 1).getAmount());
     }
 
@@ -130,8 +130,8 @@ public class SqlRequestTest {
 
         assertEquals(list.size()+1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
-        assertEquals(null, newList.get(newList.size() - 1).getAmount());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getAmount());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size()+1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
@@ -166,7 +166,7 @@ public class SqlRequestTest {
 
         assertEquals(list.size()+1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertEquals(null, newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getCredit_id());
     }
 
     @Test
