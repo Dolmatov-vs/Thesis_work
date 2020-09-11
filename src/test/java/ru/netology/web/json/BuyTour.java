@@ -9,7 +9,7 @@ import ru.netology.web.data.CardData;
 import static io.restassured.RestAssured.given;
 import static ru.netology.web.data.CardData.getCardInfo;
 
-public class BuyTour {
+public final class BuyTour {
 
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
