@@ -9,8 +9,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class PayCreditPage {
 
-    private SelenideElement heading = $("[class='heading heading_size_m heading_theme_alfa-on-white']");
-    private SelenideElement paymentField = $("[class='form form_size_m form_theme_alfa-on-white']");
+    private static final SelenideElement heading = $("[class='heading heading_size_m heading_theme_alfa-on-white']");
+    private static final SelenideElement paymentField = $("[class='form form_size_m form_theme_alfa-on-white']");
 
     public PayCreditPage() {
         heading.shouldHave(text("Кредит по данным карты"));

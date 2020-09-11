@@ -35,8 +35,7 @@ public class CardData {
 
     public static String getInvalidCardNumber() {
         Faker faker = new Faker();
-        String invalidCardNumber = faker.business().creditCardNumber();
-        return invalidCardNumber;
+        return faker.business().creditCardNumber();
     }
 
     public static String getMonth() {
@@ -53,8 +52,7 @@ public class CardData {
 
     public static String getOwner() {
         Faker faker = new Faker(new Locale("en"));
-        String owner = faker.name().lastName() + " " + faker.name().firstName();
-        return owner;
+        return faker.name().lastName() + " " + faker.name().firstName();
     }
 
     public static String getCvc() {

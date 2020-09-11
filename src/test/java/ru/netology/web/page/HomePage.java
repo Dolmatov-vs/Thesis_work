@@ -6,8 +6,8 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class HomePage {
-    private SelenideElement buyCard = $$("button").findBy(matchText("Купить"));
-    private SelenideElement buyCredit = $$("button").findBy(matchText("Купить в кредит"));
+    private static final SelenideElement buyCard = $$("button").findBy(matchText("Купить"));
+    private static final SelenideElement buyCredit = $$("button").findBy(matchText("Купить в кредит"));
 
     public PayCardPage buyCard() {
         buyCard.click();

@@ -23,17 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PayCardTest {
 
-    private String redColorError = "rgba(255, 92, 92, 1)";
-    private String colorError = "color";
-    private String incorrectFormat = "Неверный формат";
-    private String requiredField = "Поле обязательно для заполнения";
-    private String cardExpired = "Истёк срок действия карты";
-    private String cardExpirationNotCorrect = "Неверно указан срок действия карты";
-    private String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
+    private static final String incorrectFormat = "Неверный формат";
+    private static final String requiredField = "Поле обязательно для заполнения";
+    private static final String cardExpired = "Истёк срок действия карты";
+    private static final String cardExpirationNotCorrect = "Неверно указан срок действия карты";
+    private static final String specificSymbols = "~!@#$%^&*()_+<>?:\"{}[];',./| ё№-=";
 
-    private int timeOut = 10000;
-    private int currentMonth = MonthDay.now().getMonthValue();
-    private int currentYear = Year.now().getValue() % 100;
+    private static final int currentMonth = MonthDay.now().getMonthValue();
+    private static final int currentYear = Year.now().getValue() % 100;
 
     Faker faker = new Faker(new Locale("en"));
 
@@ -69,8 +66,8 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(visible, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), visible);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
     }
 
     @Test
@@ -83,8 +80,8 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(visible, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), visible);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
     }
 
     @Test
@@ -97,8 +94,8 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(visible, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), visible);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
     }
 
     @Test
@@ -110,14 +107,14 @@ public class PayCardTest {
                 null,
                 null);
 
-        new SelenideElementAssert().shouldHaveStatus(terminalPos.getStatusOk(), hidden);
-        new SelenideElementAssert().shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
 
-        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField);
-        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField);
-        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField);
-        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldOwner(), requiredField);
-        new SelenideElementAssert().shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField, visible);
     }
 
     @Test
@@ -130,13 +127,14 @@ public class PayCardTest {
                 "Ivan Ivanov",
                 "Cvc");
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCardNumber().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldMonth().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldYear().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldOwner().shouldBe(hidden, cssValue(colorError, redColorError));
-        terminalPos.getFieldCvc().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), requiredField, hidden);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField, visible);
     }
 
     @Test
@@ -149,13 +147,14 @@ public class PayCardTest {
                 "Владелец",
                 "свс");
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCardNumber().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldMonth().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldYear().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldOwner().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldCvc().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField, visible);
     }
 
     @Test
@@ -168,13 +167,14 @@ public class PayCardTest {
                 specificSymbols,
                 specificSymbols);
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCardNumber().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldMonth().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldYear().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
-        terminalPos.getFieldCvc().shouldBe(visible, text(requiredField), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCardNumber(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), requiredField, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCvc(), requiredField, visible);
         assertEquals("' -", terminalPos.getFieldOwner().$("input").getValue());
     }
 
@@ -188,9 +188,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCardNumber().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCardNumber(), incorrectFormat, visible);
     }
 
     @Test
@@ -203,8 +204,9 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(visible, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), visible);
+
         assertEquals(CardData.getApprovedCardNumber(), terminalPos.getFieldCardNumber().$("input").getValue());
     }
 
@@ -218,9 +220,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldMonth().shouldBe(visible, text(cardExpirationNotCorrect), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), cardExpirationNotCorrect, visible);
     }
 
     @Test
@@ -233,9 +236,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldMonth().shouldBe(visible, text(cardExpirationNotCorrect), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), cardExpirationNotCorrect, visible);
     }
 
     @Test
@@ -248,9 +252,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldMonth().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), incorrectFormat, visible);
     }
 
     @Test
@@ -263,8 +268,8 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(visible, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), visible);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
     }
 
     @Test
@@ -277,9 +282,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getFieldMonth().shouldBe(visible, text(cardExpired), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldMonth(), cardExpired, visible);
     }
 
     @Test
@@ -292,9 +298,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getFieldYear().shouldBe(visible, text(cardExpired), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), cardExpired, visible);
     }
 
     @Test
@@ -307,8 +314,8 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(visible, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), visible);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
     }
 
     @Test
@@ -321,9 +328,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getFieldYear().shouldBe(visible, text(cardExpirationNotCorrect), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldYear(), cardExpirationNotCorrect, visible);
     }
 
     @Test
@@ -336,9 +344,10 @@ public class PayCardTest {
                 cardInfo.getHolder(),
                 "000");
 
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getFieldCvc().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldCvc(), incorrectFormat, visible);
     }
 
     @Test
@@ -351,9 +360,10 @@ public class PayCardTest {
                 " " + cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -366,9 +376,10 @@ public class PayCardTest {
                 cardInfo.getHolder() + " ",
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -381,9 +392,10 @@ public class PayCardTest {
                 "'" + cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -396,9 +408,10 @@ public class PayCardTest {
                 cardInfo.getHolder() + "'",
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -411,9 +424,10 @@ public class PayCardTest {
                 "-" + cardInfo.getHolder(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -426,9 +440,10 @@ public class PayCardTest {
                 cardInfo.getHolder() + "-",
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 
     @Test
@@ -441,8 +456,9 @@ public class PayCardTest {
                 faker.name().lastName(),
                 cardInfo.getCvc());
 
-        terminalPos.getStatusError().waitUntil(hidden, timeOut);
-        terminalPos.getStatusOk().waitUntil(hidden, timeOut);
-        terminalPos.getFieldOwner().shouldBe(visible, text(incorrectFormat), cssValue(colorError, redColorError));
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusOk(), hidden);
+        SelenideElementAssert.shouldHaveStatus(terminalPos.getStatusError(), hidden);
+
+        SelenideElementAssert.shouldHaveAlertColor(terminalPos.getFieldOwner(), incorrectFormat, visible);
     }
 }

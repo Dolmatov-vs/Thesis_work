@@ -11,7 +11,7 @@ import static ru.netology.web.data.CardData.getCardInfo;
 
 public class BuyTour {
 
-    private static RequestSpecification requestSpec = new RequestSpecBuilder()
+    private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(8080)
             .setAccept(ContentType.JSON)
@@ -41,15 +41,13 @@ public class BuyTour {
                 .statusCode(statusCode); // код 200 OK
     }
 
-    public static CardData.CardInfo newBuy(CardData.CardInfo number, int statusCode) {
+    public static void newBuy(CardData.CardInfo number, int statusCode) {
         CardData.CardInfo card = getCardInfo(number.getNumber());
         buy(card, statusCode);
-        return card;
     }
 
-    public static CardData.CardInfo newCredit(CardData.CardInfo number, int statusCode) {
+    public static void newCredit(CardData.CardInfo number, int statusCode) {
         CardData.CardInfo card = getCardInfo(number.getNumber());
         credit(card, statusCode);
-        return card;
     }
 }

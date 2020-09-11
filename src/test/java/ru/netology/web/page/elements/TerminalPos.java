@@ -11,24 +11,23 @@ import static com.codeborne.selenide.Selenide.*;
 @Data
 public class TerminalPos {
 
-    private SelenideElement statusOk = $(byText("Операция одобрена Банком."));
-    private SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
+    private final SelenideElement statusOk = $(byText("Операция одобрена Банком."));
+    private final SelenideElement statusError = $(byText("Ошибка! Банк отказал в проведении операции."));
 
-    private ElementsCollection cardFields = $$("[class='input__inner']");
-    private SelenideElement fieldCardNumber = cardFields.findBy(text("Номер карты"));
-    private SelenideElement fieldMonth = cardFields.findBy(text("Месяц"));
-    private SelenideElement fieldYear = cardFields.findBy(text("Год"));
-    private SelenideElement fieldOwner = cardFields.findBy(text("Владелец"));
-    private SelenideElement fieldCvc = cardFields.findBy(text("CVC/CVV"));
-    private SelenideElement proceed = $$("button").findBy(text("Продолжить"));
+    private final ElementsCollection cardFields = $$("[class='input__inner']");
+    private final SelenideElement fieldCardNumber = cardFields.findBy(text("Номер карты"));
+    private final SelenideElement fieldMonth = cardFields.findBy(text("Месяц"));
+    private final SelenideElement fieldYear = cardFields.findBy(text("Год"));
+    private final SelenideElement fieldOwner = cardFields.findBy(text("Владелец"));
+    private final SelenideElement fieldCvc = cardFields.findBy(text("CVC/CVV"));
+    private final SelenideElement proceed = $$("button").findBy(text("Продолжить"));
 
-    public SelenideElementAssert payment(String cardNumber, String month, String year, String owner, String cvc) {
+    public void payment(String cardNumber, String month, String year, String owner, String cvc) {
         fieldCardNumber.$("input").setValue(cardNumber);
         fieldMonth.$("input").setValue(month);
         fieldYear.$("input").setValue(year);
         fieldOwner.$("input").setValue(owner);
         fieldCvc.$("input").setValue(cvc);
         proceed.click();
-        return new SelenideElementAssert();
     }
 }

@@ -5,17 +5,17 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.*;
 
-public class SelenideElementAssert {
+public final class SelenideElementAssert {
 
-    private String redColorError = "rgba(255, 92, 92, 1)";
-    private String colorError = "color";
-    private int timeOut = 10000;
+    private static final String redColorError = "rgba(255, 92, 92, 1)";
+    private static final String colorError = "color";
+    private static final int timeOut = 10000;
 
-    public void shouldHaveAlertColor(SelenideElement field, String massage){
-        field.shouldBe(visible, text(massage), cssValue(colorError, redColorError));
+    public static void shouldHaveAlertColor(SelenideElement field, String massage, Condition condition){
+        field.shouldBe(condition, text(massage), cssValue(colorError, redColorError));
     }
 
-    public void shouldHaveStatus(SelenideElement field, Condition condition){
+    public static void shouldHaveStatus(SelenideElement field, Condition condition){
         field.waitUntil(condition, timeOut);
     }
 }
