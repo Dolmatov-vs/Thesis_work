@@ -15,4 +15,8 @@
 `./gradlew clean test --info -Dselenide.headless=true -DjdbcUrl=jdbc:mysql://localhost:3306/app; ./gradlew allureReport`
 
 * **С использованием СУБД Postgresql:**  
-`./gradlew clean test --info -Dselenide.headless=true -DjdbcUrl=jdbc:postgresql://localhost:5432/app; ./gradlew allureReport` 
+`./gradlew clean test --info -Dselenide.headless=true -DjdbcUrl=jdbc:postgresql://localhost:5432/app; ./gradlew allureReport`  
+
+#### Отчётные документы по итогам тестирования: [Report.md](https://github.com/Dolmatov-vs/Thesis_work/blob/master/Report.md)  
+
+#### Отчётные документы по итогам автоматизации: [Summary.md](https://github.com/Dolmatov-vs/Thesis_work/blob/master/Summary.md)
