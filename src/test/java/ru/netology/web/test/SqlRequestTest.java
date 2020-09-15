@@ -57,7 +57,7 @@ public class SqlRequestTest {
         assertEquals(list.size() + 1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
         assertNull(newList.get(newList.size() - 1).getCredit_id());
-        assertNull(newList.get(newList.size() - 1).getAmount());
+        assertEquals(amount, newList.get(newList.size() - 1).getAmount());
     }
 
     @Test
