@@ -20,7 +20,6 @@ public class SqlRequestTest {
     private static final String declined = "DECLINED";
     private static final String amount = "4500000";
     private static final String getJdbcUrl = System.getProperty("jdbcUrl");
-
     private static final int statusCodeOK = 200;
     private static final int statusServerError = 500;
 
@@ -44,6 +43,7 @@ public class SqlRequestTest {
         assertEquals(list.size() + 1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
         assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNotNull(newList.get(newList.size() - 1).getPayment_id());
         assertEquals(amount, newList.get(newList.size() - 1).getAmount());
     }
 
@@ -57,6 +57,7 @@ public class SqlRequestTest {
         assertEquals(list.size() + 1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
         assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNotNull(newList.get(newList.size() - 1).getPayment_id());
         assertEquals(amount, newList.get(newList.size() - 1).getAmount());
     }
 
@@ -79,7 +80,8 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(approved, newList.get(newList.size() - 1).getStatus());
-        assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNotNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getPayment_id());
     }
 
     @Test
@@ -91,7 +93,8 @@ public class SqlRequestTest {
 
         assertEquals(list.size() + 1, newList.size());
         assertEquals(declined, newList.get(newList.size() - 1).getStatus());
-        assertNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNotNull(newList.get(newList.size() - 1).getCredit_id());
+        assertNull(newList.get(newList.size() - 1).getPayment_id());
     }
 
     @Test

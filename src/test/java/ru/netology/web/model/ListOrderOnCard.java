@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ListOrderOnCard {
     private String credit_id;
+    private String payment_id;
     private String status;
     private String amount;
 }
